@@ -4,7 +4,7 @@
 #
 Name     : text-unidecode
 Version  : 1.2
-Release  : 1
+Release  : 2
 URL      : https://files.pythonhosted.org/packages/f0/a2/40adaae7cbdd007fb12777e550b5ce344b56189921b9f70f37084c021ca4/text-unidecode-1.2.tar.gz
 Source0  : https://files.pythonhosted.org/packages/f0/a2/40adaae7cbdd007fb12777e550b5ce344b56189921b9f70f37084c021ca4/text-unidecode-1.2.tar.gz
 Summary  : The most basic Text::Unidecode port
