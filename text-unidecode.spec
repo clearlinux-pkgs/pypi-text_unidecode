@@ -4,7 +4,7 @@
 #
 Name     : text-unidecode
 Version  : 1.3
-Release  : 7
+Release  : 8
 URL      : https://files.pythonhosted.org/packages/ab/e2/e9a00f0ccb71718418230718b3d900e71a5d16e701a3dae079a21e9cd8f8/text-unidecode-1.3.tar.gz
 Source0  : https://files.pythonhosted.org/packages/ab/e2/e9a00f0ccb71718418230718b3d900e71a5d16e701a3dae079a21e9cd8f8/text-unidecode-1.3.tar.gz
 Summary  : The most basic Text::Unidecode port
@@ -18,9 +18,48 @@ BuildRequires : buildreq-distutils3
 %description
 Text-Unidecode
 ==============
+
 .. image:: https://travis-ci.org/kmike/text-unidecode.svg?branch=master
-:target: https://travis-ci.org/kmike/text-unidecode
-:alt: Build Status
+    :target: https://travis-ci.org/kmike/text-unidecode
+    :alt: Build Status
+
+text-unidecode is the most basic port of the
+`Text::Unidecode <http://search.cpan.org/~sburke/Text-Unidecode-0.04/lib/Text/Unidecode.pm>`_
+Perl library.
+
+There are other Python ports of Text::Unidecode (unidecode_
+and isounidecode_). unidecode_ is GPL; isounidecode_ uses too much memory,
+and it didn't support Python 3 when this package was created.
+
+You can redistribute it and/or modify this port under the terms of either:
+
+* `Artistic License`_, or
+* GPL or GPLv2+
+
+If you're OK with GPL-only, use unidecode_ (it has better memory usage and
+better transliteration quality).
+
+``text-unidecode`` supports Python 2.7 and 3.4+.
+
+.. _unidecode: https://pypi.python.org/pypi/Unidecode/
+.. _isounidecode: https://pypi.python.org/pypi/isounidecode/
+.. _Artistic License: https://opensource.org/licenses/Artistic-Perl-1.0
+
+Installation
+------------
+
+::
+
+    pip install text-unidecode
+
+Usage
+-----
+
+::
+
+    >>> from text_unidecode import unidecode
+    >>> unidecode(u'какой-то текст')
+    'kakoi-to tekst'
 
 %package license
 Summary: license components for the text-unidecode package.
@@ -43,6 +82,7 @@ python components for the text-unidecode package.
 Summary: python3 components for the text-unidecode package.
 Group: Default
 Requires: python3-core
+Provides: pypi(text-unidecode)
 
 %description python3
 python3 components for the text-unidecode package.
@@ -50,13 +90,14 @@ python3 components for the text-unidecode package.
 
 %prep
 %setup -q -n text-unidecode-1.3
+cd %{_builddir}/text-unidecode-1.3
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1567439818
+export SOURCE_DATE_EPOCH=1582910696
 # -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
@@ -70,7 +111,7 @@ python3 setup.py build
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/text-unidecode
-cp LICENSE %{buildroot}/usr/share/package-licenses/text-unidecode/LICENSE
+cp %{_builddir}/text-unidecode-1.3/LICENSE %{buildroot}/usr/share/package-licenses/text-unidecode/41daa613919d46f8422f7784166d5881b008121e
 python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
@@ -81,7 +122,7 @@ echo ----[ mark ]----
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/text-unidecode/LICENSE
+/usr/share/package-licenses/text-unidecode/41daa613919d46f8422f7784166d5881b008121e
 
 %files python
 %defattr(-,root,root,-)
